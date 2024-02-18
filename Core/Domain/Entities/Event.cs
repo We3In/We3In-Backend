@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Events : BaseEntity
+    public class Event : BaseEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }
