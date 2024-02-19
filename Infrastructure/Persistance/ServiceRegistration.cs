@@ -23,6 +23,7 @@ namespace Persistance
             services.AddScoped<DbContext, ApiDbContext>();
 
             services.AddScoped<IEventReadRepository, EventReadRepository>();
+            services.AddScoped<IEventWriteRepository, EventWriteRepository>();
 
         }
     }

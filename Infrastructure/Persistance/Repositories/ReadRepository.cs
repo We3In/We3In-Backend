@@ -33,10 +33,10 @@ namespace Persistance.Repositories
 
         public async Task<T> GetByIdAsync(string id, bool track = true)
         {
-            if(id == null)
-                throw new ArgumentNullException(nameof(id), "id must exist.");
+            if (id == null)
+                throw new ArgumentNullException(nameof(id), "id boş gelemez");
             var query = Table.AsQueryable();
-            if(!track)
+            if (!track)
                 query = query.AsNoTracking();
             return await query.FirstOrDefaultAsync(x => x.Id == Guid.Parse(id)) ?? throw new ArgumentException(nameof(T));
         }
