@@ -1,5 +1,12 @@
-﻿using Application.Repositories.EventRepository;
+﻿using Application.Features.Commands.CreateEvent;
+using Application.Features.Commands.DeleteEvent;
+using Application.Features.Commands.UpdateEvent;
+using Application.Features.Queries.GetEventById;
+using Application.Features.Queries.GetEventProduct;
+using Application.Repositories.EventRepository;
+using Application.RequestParameters;
 using Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,66 +16,48 @@ namespace Api.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly IEventReadRepository _eventReadRepository;
-        private readonly IEventWriteRepository _eventWriteRepository;
+        readonly IMediator _mediator;
 
-        public EventController(IEventReadRepository eventReadRepository, IEventWriteRepository eventWriteRepository)
+        public EventController(IMediator mediator)
         {
-            _eventReadRepository = eventReadRepository;
-            _eventWriteRepository = eventWriteRepository;
+            _mediator = mediator;
         }
 
-
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync([FromQuery] GetAllProductQueryRequest getAllProductQueryRequest)
         {
-            var events = _eventReadRepository.GetAll();
-            return Ok(events);
+          GetAllProductQueryResponse response = await _mediator.Send(getAllProductQueryRequest);
+            return Ok(response);
         }
 
         [HttpGet("by-id")]
-        public async Task<IActionResult> GetByIdAsync(String id)
+        public async Task<IActionResult> GetByIdAsync(GetEventByIdQueryRequest getEventByIdQueryRequest)
         {
-            return Ok(await _eventReadRepository.GetByIdAsync(id, false));
+            GetEventByIdQueryResponse response = await _mediator.Send(getEventByIdQueryRequest);
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync(Event @event){
-            _ = await _eventWriteRepository.AddAsync(@event);
-            var result = _eventWriteRepository.SaveAsync();
-            
-            return result.Result > 0 ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+        public async Task<IActionResult> PostAsync(CreateEventCommandRequest createEventCommandRequest){
+            CreateEventCommandResponse response = await _mediator.Send(createEventCommandRequest);
+            return response.isSuccess ? Ok(response) : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        [HttpPost("range")]
-        public async Task<IActionResult> PostRangeAsync(List<Event> @events)
-        {
-            _ = await _eventWriteRepository.AddRangeAsync(@events);
-            var result = _eventWriteRepository.SaveAsync();
-
-            return result.Result > 0 ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
-        }
 
         [HttpPut]
-        public IActionResult PutAsync(Event @event)
+        public async Task<IActionResult> PutAsync(UpdateEventCommandRequest updateEventCommandRequest)
         {
-            _ = _eventWriteRepository.Update(@event);
-            var result = _eventWriteRepository.SaveAsync();
+            UpdateEventCommandResponse response = await _mediator.Send(updateEventCommandRequest);
 
-            return result.Result > 0 ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return response.isSuccess ? Ok(response) : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(String id)
+        public async Task<IActionResult> DeleteAsync(DeleteEventCommandRequest deleteEventCommandRequest)
         {
-            var deletedEvent = await _eventReadRepository.GetByIdAsync(id, false);
-            if(deletedEvent == null)
-                return NotFound();
+            DeleteEventCommandResponse response = await _mediator.Send(deleteEventCommandRequest);
 
-            _ = _eventWriteRepository.Remove(deletedEvent);
-            var result = _eventWriteRepository.SaveAsync();
-
-            return result.Result > 0 ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return response.isSuccess ? Ok(response) : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }
