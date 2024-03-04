@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetEventById
+namespace Application.Features.Queries.Event.GetEventById
 {
     public class GetEventByIdQueryRequest : IRequest<GetEventByIdQueryResponse>
     {

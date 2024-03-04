@@ -1,10 +1,8 @@
-﻿using Application.Features.Commands.CreateEvent;
-using Application.Features.Commands.DeleteEvent;
-using Application.Features.Commands.UpdateEvent;
-using Application.Features.Queries.GetEventById;
-using Application.Features.Queries.GetEventProduct;
-using Application.Repositories.EventRepository;
-using Application.RequestParameters;
+﻿using Application.Features.Commands.Event.CreateEvent;
+using Application.Features.Commands.Event.DeleteEvent;
+using Application.Features.Commands.Event.UpdateEvent;
+using Application.Features.Queries.Event.GetEventById;
+using Application.Features.Queries.Event.GetEventProduct;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;

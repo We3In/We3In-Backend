@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetEventProduct
+namespace Application.Features.Queries.Event.GetEventProduct
 {
-    public class GetAllProductQueryResponse 
+    public class GetAllProductQueryResponse
     {
         public int TotalCount { get; set; }
         public object Events { get; set; }

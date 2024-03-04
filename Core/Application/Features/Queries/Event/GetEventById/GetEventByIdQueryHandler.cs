@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Queries.GetEventById
+namespace Application.Features.Queries.Event.GetEventById
 {
     public class GetEventByIdQueryHandler : IRequestHandler<GetEventByIdQueryRequest, GetEventByIdQueryResponse>
-    {   
+    {
         private readonly IEventReadRepository _eventReadRepository;
 
         public GetEventByIdQueryHandler(IEventReadRepository eventReadRepository)
@@ -19,8 +19,8 @@ namespace Application.Features.Queries.GetEventById
 
         public async Task<GetEventByIdQueryResponse> Handle(GetEventByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var result = await _eventReadRepository.GetByIdAsync(request.Id, false); 
-            
+            var result = await _eventReadRepository.GetByIdAsync(request.Id, false);
+
             return new()
             {
                 Name = result.Name,
@@ -30,7 +30,7 @@ namespace Application.Features.Queries.GetEventById
                 Location = result.Location,
                 Image = result.Image
             };
-            
+
 
         }
     }
