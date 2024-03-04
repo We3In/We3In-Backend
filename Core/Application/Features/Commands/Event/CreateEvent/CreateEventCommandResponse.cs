@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.CreateEvent
+namespace Application.Features.Commands.Event.CreateEvent
 {
     public class CreateEventCommandResponse
     {

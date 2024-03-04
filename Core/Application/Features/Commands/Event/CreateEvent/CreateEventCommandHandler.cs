@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.CreateEvent
+namespace Application.Features.Commands.Event.CreateEvent
 {
     public class CreateEventCommandHandler : IRequestHandler<CreateEventCommandRequest, CreateEventCommandResponse>
     {
@@ -28,6 +28,7 @@ namespace Application.Features.Commands.CreateEvent
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
                 Location = request.Location,
+                UserId = Guid.NewGuid().ToString()
             });
             var result = _eventWriteRepository.SaveAsync();
 

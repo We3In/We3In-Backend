@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.UpdateEvent
+namespace Application.Features.Commands.Event.UpdateEvent
 {
     public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommandRequest, UpdateEventCommandResponse>
     {
-        private readonly IEventWriteRepository  _eventWriteRepository;
+        private readonly IEventWriteRepository _eventWriteRepository;
 
         public UpdateEventCommandHandler(IEventWriteRepository eventWriteRepository)
         {

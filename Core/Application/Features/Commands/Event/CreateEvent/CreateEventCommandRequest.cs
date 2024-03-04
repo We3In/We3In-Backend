@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.UpdateEvent
+namespace Application.Features.Commands.Event.CreateEvent
 {
-    public class UpdateEventCommandRequest : IRequest<UpdateEventCommandResponse>
+    public class CreateEventCommandRequest : IRequest<CreateEventCommandResponse>
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }

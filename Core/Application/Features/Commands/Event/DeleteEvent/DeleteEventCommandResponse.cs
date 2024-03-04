@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.UpdateEvent
+namespace Application.Features.Commands.Event.DeleteEvent
 {
-    public class UpdateEventCommandResponse
+    public class DeleteEventCommandResponse
     {
         public bool isSuccess { get; set; }
         public string Message { get; set; }

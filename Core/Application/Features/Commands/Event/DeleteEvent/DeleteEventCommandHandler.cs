@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Commands.DeleteEvent
+namespace Application.Features.Commands.Event.DeleteEvent
 {
     public class DeleteEventCommandHandler : IRequestHandler<DeleteEventCommandRequest, DeleteEventCommandResponse>
     {
@@ -22,7 +22,7 @@ namespace Application.Features.Commands.DeleteEvent
         public async Task<DeleteEventCommandResponse> Handle(DeleteEventCommandRequest request, CancellationToken cancellationToken)
         {
             var deletedEvent = await _eventReadRepository.GetByIdAsync(request.Id, false);
-            if(deletedEvent == null)
+            if (deletedEvent == null)
             {
                 return new()
                 {
