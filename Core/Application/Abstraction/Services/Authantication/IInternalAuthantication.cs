@@ -8,6 +8,7 @@ namespace Application.Abstraction.Services.Authantication
 {
     public interface IInternalAuthantication
     {
-        Task LoginAsync(string emailOrPassword, string password);
+        Task<Dtos.Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTime);
+        Task<Dtos.Token> RefreshTokenLoginAsync(string refreshToken);
     }
 }
