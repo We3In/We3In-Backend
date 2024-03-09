@@ -16,5 +16,8 @@ namespace Domain.Entities
         public string Location { get; set; }
         public string Image { get; set; }
         public string UserId { get; set; }
+
+
+        public ICollection<Challenge> Challenges { get; set; }
     }
 }
