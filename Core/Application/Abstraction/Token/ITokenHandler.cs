@@ -9,5 +9,7 @@ namespace Application.Abstraction.Token
     public interface ITokenHandler
     {
         Dtos.Token CreateAccessToken(int hours);
+        string CreateRefreshToken();
+
     }
 }
