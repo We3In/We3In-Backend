@@ -1,4 +1,5 @@
 ﻿using Application.Features.Commands.AppUser.CreateUser;
+using Application.Features.Commands.AppUser.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace Api.Controllers
     [ApiController]
     public class UsersController : Controller
     {
-        readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public UsersController(IMediator mediator)
         {
@@ -21,6 +22,14 @@ namespace Api.Controllers
             CreateUserCommandResponse result = await _mediator.Send(createUserCommandRequest);
 
             return Ok(result);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
+        {
+            LoginUserCommandResponse response = await  _mediator.Send(loginUserCommandRequest);
+
+            return Ok(response);
         }
     }
 }

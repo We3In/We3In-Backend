@@ -1,50 +1,33 @@
-﻿using Application.Exceptions;
+﻿using Application.Abstraction.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Commands.AppUser.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandRequest, CreateUserCommandResponse>
     {
-        readonly UserManager<Domain.Entities.Identity.AppUser> _userManager;
+        readonly IUserServices _userServices;
 
-        public CreateUserCommandHandler(UserManager<Domain.Entities.Identity.AppUser> userManager)
+        public CreateUserCommandHandler(IUserServices userServices)
         {
-            _userManager = userManager;
+            _userServices = userServices;
         }
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
         {
-            IdentityResult result = await _userManager.CreateAsync(new()
+            var result = await _userServices.CreateAstnc(new()
             {
-                Id = Guid.NewGuid().ToString(),
+                NameSurename = request.NameSurename,
                 UserName = request.UserName,
-                NameSurname = request.NameSurename,
                 Email = request.Email,
-            }, request.Password);
+                Password = request.Password,
+                PasswordConfirm = request.PasswordConfirm
+            });
 
-            if(result.Succeeded)
-            {
-                return new CreateUserCommandResponse
-                {
-                    isSuccess = true,
-                    Message = "User created successfully"
-                };
-            }
-            else
-            {
-                return new CreateUserCommandResponse
-                {
-                    isSuccess = false,
-                    Message = string.Join(", ", result.Errors.Select(x => x.Description))
-                };
-            }
-
+            return new() { 
+                isSuccess = result.isSuccess,
+                Message = result.Message
+            };
 
         }
     }

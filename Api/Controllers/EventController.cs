@@ -5,6 +5,7 @@ using Application.Features.Queries.Event.GetEventById;
 using Application.Features.Queries.Event.GetEventProduct;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromQuery] GetAllProductQueryRequest getAllProductQueryRequest)
+        public async Task<IActionResult> GetAsync([FromQuery] GetAllEventQueryRequest getAllProductQueryRequest)
         {
           GetAllProductQueryResponse response = await _mediator.Send(getAllProductQueryRequest);
             return Ok(response);
@@ -36,6 +37,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> PostAsync(CreateEventCommandRequest createEventCommandRequest){
             CreateEventCommandResponse response = await _mediator.Send(createEventCommandRequest);
             return response.isSuccess ? Ok(response) : StatusCode(StatusCodes.Status500InternalServerError);
@@ -43,6 +45,7 @@ namespace Api.Controllers
 
 
         [HttpPut]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> PutAsync(UpdateEventCommandRequest updateEventCommandRequest)
         {
             UpdateEventCommandResponse response = await _mediator.Send(updateEventCommandRequest);
@@ -51,6 +54,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
+        [Authorize(AuthenticationSchemes ="Admin")]
         public async Task<IActionResult> DeleteAsync(DeleteEventCommandRequest deleteEventCommandRequest)
         {
             DeleteEventCommandResponse response = await _mediator.Send(deleteEventCommandRequest);
