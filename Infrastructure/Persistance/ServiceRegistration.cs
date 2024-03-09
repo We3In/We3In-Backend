@@ -47,7 +47,7 @@ namespace Persistance
             services.AddScoped<IChallengeReadRepository, IChallengeReadRepository>();
             services.AddScoped<IChallengeWriteRepository, IChallengeWriteRepository>();
 
-            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IUserService, UserServices>();
 
         }
     }

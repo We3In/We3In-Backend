@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Persistance.Services
 {
-    public class UserServices : IUserServices
+    public class UserServices : IUserService
     {
         private readonly UserManager<AppUser> _userManager;
 
