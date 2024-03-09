@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Queries.Event.GetEventProduct
 {
-    public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryRequest, GetAllProductQueryResponse>
+    public class GetAllProductQueryHandler : IRequestHandler<GetAllEventQueryRequest, GetAllProductQueryResponse>
     {
         private readonly IEventReadRepository _eventReadRepository;
 
@@ -17,7 +17,7 @@ namespace Application.Features.Queries.Event.GetEventProduct
             _eventReadRepository = eventReadRepository;
         }
 
-        public async Task<GetAllProductQueryResponse> Handle(GetAllProductQueryRequest request, CancellationToken cancellationToken)
+        public async Task<GetAllProductQueryResponse> Handle(GetAllEventQueryRequest request, CancellationToken cancellationToken)
         {
             var totalCount = _eventReadRepository.GetAll(false).Count();
             var events = _eventReadRepository.GetAll(false)
