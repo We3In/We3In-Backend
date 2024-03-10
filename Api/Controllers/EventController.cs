@@ -58,7 +58,6 @@ namespace Api.Controllers
         {
             var userId = User.FindFirst(ClaimTypes.Name).Value;
 
-
             if (userId == null)
                 return StatusCode(StatusCodes.Status401Unauthorized, "Unauthorized");
 
