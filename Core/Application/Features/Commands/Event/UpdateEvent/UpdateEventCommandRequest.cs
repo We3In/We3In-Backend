@@ -16,5 +16,6 @@ namespace Application.Features.Commands.Event.UpdateEvent
         public DateTime EndDate { get; set; }
         public string Location { get; set; }
         public string Image { get; set; }
+        public string CreatorUserId { get; set; }
     }
 }

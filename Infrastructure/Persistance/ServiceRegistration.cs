@@ -1,20 +1,14 @@
 ﻿using Application.Abstraction.Services;
-using Application.Abstraction.Token;
 using Application.Repositories.ChallengeRepository;
 using Application.Repositories.EventRepository;
 using Domain.Entities.Identity;
-using Infrastructure.Services.Token;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Persistance.Context;
+using Persistance.Repositories.ChallengeRepository;
 using Persistance.Repositories.EventRepositories;
-using Persistance.Services;
 using Persistance.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistance
 {
@@ -42,12 +36,11 @@ namespace Persistance
             services.AddScoped<IEventReadRepository, EventReadRepository>();
             services.AddScoped<IEventWriteRepository, EventWriteRepository>();
 
-            services.AddScoped<ITokenHandler, TokenHandler>();
+            services.AddScoped<IAuthService, AuthService>();
 
-            services.AddScoped<IChallengeReadRepository, IChallengeReadRepository>();
-            services.AddScoped<IChallengeWriteRepository, IChallengeWriteRepository>();
+            services.AddScoped<IChallengeReadRepository, ChallengeReadRepository>();
+            services.AddScoped<IChallengeWriteRepository, ChallengeWriteRepository>();
 
-            services.AddScoped<IUserService, UserServices>();
 
         }
     }

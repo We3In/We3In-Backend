@@ -15,7 +15,7 @@ namespace Domain.Entities
         public DateTime EndDate { get; set; }
         public string Location { get; set; }
         public string Image { get; set; }
-        public string UserId { get; set; }
+        public string CreatorUserId { get; set; }
 
 
         public ICollection<Challenge> Challenges { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Application.Repositories.EventRepository;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Application.Features.Commands.Event.CreateEvent
 
         public async Task<CreateEventCommandResponse> Handle(CreateEventCommandRequest request, CancellationToken cancellationToken)
         {
+
             _ = await _eventWriteRepository.AddAsync(new()
             {
                 Name = request.Name,
@@ -28,7 +30,7 @@ namespace Application.Features.Commands.Event.CreateEvent
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
                 Location = request.Location,
-                UserId = Guid.NewGuid().ToString()
+                CreatorUserId = request.CreatorUserId
             });
             var result = _eventWriteRepository.SaveAsync();
 

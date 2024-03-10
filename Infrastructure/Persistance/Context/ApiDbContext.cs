@@ -18,7 +18,8 @@ namespace Persistance.Context
         }
 
         public DbSet<Event> Events { get; set; }
-
+        public DbSet<Challenge> Challenges { get; set; }
+        public DbSet<ChallengeSubmit> ChallengeSubmits { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

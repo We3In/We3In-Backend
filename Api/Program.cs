@@ -1,5 +1,6 @@
-using Application;
+ï»¿using Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Persistance;
 using System.Text;
@@ -17,20 +18,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer("Admin", option =>
+    .AddJwtBearer("Jwt", options =>
     {
-        option.TokenValidationParameters = new()
+        options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateAudience = false, // Ouþacak tokenin hangi sitelerin kullanabileceðini belirtir
-            ValidateIssuer = true, // Tokenin kimin tarafýndan daðýtýldýðýný belirtir
-            ValidateLifetime = true, // oluþturulan token deðerinin süresini kontrol eder
-            ValidateIssuerSigningKey = true, // Token deðerinin uygulamaya ait olup olmadýðýný kontrol eder
-
+            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
             ValidAudience = builder.Configuration["Token:Audience"],
             ValidIssuer = builder.Configuration["Token:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:Issuer"]))
         };
-    });
+    }).AddIdentityCookies();
 
 var app = builder.Build();
 
